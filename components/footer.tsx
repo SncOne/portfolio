@@ -1,10 +1,14 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 const socials = [
-  { label: 'GitHub', href: 'https://github.com/turkergurel', icon: GitHubIcon },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/turkergurel', icon: LinkedInIcon },
-  { label: 'Email', href: 'mailto:hello@turkergurel.com', icon: MailIcon },
-]
+  { label: "GitHub", href: "https://github.com/sncone", icon: GitHubIcon },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/turker-gurel/",
+    icon: LinkedInIcon,
+  },
+  { label: "Email", href: "mailto:turkergurel19@gmail.com", icon: MailIcon },
+];
 
 export function Footer() {
   return (
@@ -28,7 +32,7 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
 
 function GitHubIcon({ className }: { className?: string }) {
@@ -48,7 +52,7 @@ function GitHubIcon({ className }: { className?: string }) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
 
 function LinkedInIcon({ className }: { className?: string }) {
@@ -70,7 +74,7 @@ function LinkedInIcon({ className }: { className?: string }) {
       <rect x="2" y="9" width="4" height="12" rx="1" />
       <circle cx="4" cy="4" r="2" />
     </svg>
-  )
+  );
 }
 
 function MailIcon({ className }: { className?: string }) {
@@ -87,5 +91,5 @@ function MailIcon({ className }: { className?: string }) {
       <rect x="3" y="5" width="18" height="14" rx="2" ry="2" />
       <path d="m3 7 9 6 9-6" />
     </svg>
-  )
+  );
 }

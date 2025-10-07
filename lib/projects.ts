@@ -42,12 +42,12 @@ export const projects: Project[] = [
       {
         type: 'google-play',
         label: 'Google Play',
-        href: 'https://play.google.com/store/apps/details?id=ridertify',
+        href: 'https://play.google.com/store/apps/details?id=com.newIdTech.ridertify',
       },
       {
         type: 'app-store',
         label: 'App Store',
-        href: 'https://apps.apple.com/app/ridertify/id1234567890',
+        href: 'https://apps.apple.com/us/app/ridertify/id6737122354',
       },
     ],
     gallery: [
@@ -116,12 +116,12 @@ export const projects: Project[] = [
       {
         type: 'app-store',
         label: 'App Store',
-        href: 'https://apps.apple.com/app/inndance/id0987654321',
+        href: 'https://apps.apple.com/us/app/inndance/id6737911955',
       },
       {
-        type: 'github',
-        label: 'GitHub',
-        href: 'https://github.com/turkergurel/inndance',
+        type: 'google-play',
+        label: 'Google Play',
+        href: 'https://play.google.com/store/apps/details?id=com.newIdTech.inndance',
       },
     ],
     gallery: [
