@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useReducedMotion } from 'framer-motion'
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { ComponentPropsWithoutRef, HTMLAttributes, ReactNode } from 'react'
 
 type FadeInProps = {
   children: ReactNode
@@ -25,7 +25,7 @@ export function FadeIn({ children, delay = 0, className, ...props }: FadeInProps
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.6, ease: 'easeOut' }}
       className={className}
-      {...props}
+      {...(props as ComponentPropsWithoutRef<typeof motion.div>)}
     >
       {children}
     </motion.div>
