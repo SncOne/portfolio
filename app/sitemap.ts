@@ -1,17 +1,18 @@
-import { getBlogPosts } from 'app/blog/utils'
+import type { MetadataRoute } from 'next'
 
-export const baseUrl = 'https://portfolio-blog-starter.vercel.app'
+import { projects } from '@/lib/projects'
 
-export default async function sitemap() {
-  let blogs = getBlogPosts().map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: post.metadata.publishedAt,
-  }))
+export const baseUrl = 'https://turkergurel.com'
 
-  let routes = ['', '/blog'].map((route) => ({
+const staticPages = ['', '/about', '/projects', '/contact']
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date()
+
+  const projectPages = projects.map((project) => `/projects/${project.slug}`)
+
+  return [...staticPages, ...projectPages].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString().split('T')[0],
+    lastModified,
   }))
-
-  return [...routes, ...blogs]
 }

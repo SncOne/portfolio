@@ -1,0 +1,17 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" rx="48" fill="#020617" />
+  <circle cx="600" cy="360" r="320" fill="url(#routeGradient)" opacity="0.6" />
+  <path d="M320 520C480 260 680 620 840 360" stroke="#f97316" stroke-width="14" stroke-linecap="round" fill="none" />
+  <path d="M320 520C480 260 680 620 840 360" stroke="#f97316" stroke-width="4" stroke-linecap="round" fill="none" stroke-dasharray="12 24" opacity="0.35" />
+  <circle cx="320" cy="520" r="18" fill="#38bdf8" />
+  <circle cx="840" cy="360" r="18" fill="#f97316" />
+  <rect x="420" y="200" width="360" height="80" rx="24" fill="rgba(15,23,42,0.85)" stroke="rgba(148,163,184,0.4)" />
+  <rect x="460" y="228" width="120" height="14" rx="7" fill="#38bdf8" />
+  <rect x="460" y="252" width="240" height="10" rx="5" fill="#94a3b8" opacity="0.6" />
+  <defs>
+    <radialGradient id="routeGradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600 360) rotate(90) scale(360)">
+      <stop stop-color="#1f2937" />
+      <stop offset="1" stop-color="#020617" />
+    </radialGradient>
+  </defs>
+</svg>

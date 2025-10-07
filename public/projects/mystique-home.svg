@@ -1,0 +1,24 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="mystique-bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600 360) scale(600 360)">
+      <stop offset="0" stop-color="#6d28d9" />
+      <stop offset="1" stop-color="#111827" />
+    </radialGradient>
+    <linearGradient id="mystique-card" x1="0" y1="0" x2="360" y2="480" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="rgba(255,255,255,0.12)" />
+      <stop offset="1" stop-color="rgba(148,163,184,0.08)" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" rx="48" fill="url(#mystique-bg)" />
+  <circle cx="960" cy="160" r="120" fill="#facc15" opacity="0.35" />
+  <circle cx="240" cy="520" r="160" fill="#f472b6" opacity="0.25" />
+  <rect x="280" y="180" width="320" height="360" rx="32" fill="rgba(15,23,42,0.35)" stroke="rgba(236,233,254,0.3)" />
+  <rect x="620" y="220" width="300" height="120" rx="28" fill="rgba(15,23,42,0.25)" stroke="rgba(236,233,254,0.2)" />
+  <rect x="660" y="252" width="180" height="16" rx="8" fill="#f8fafc" opacity="0.8" />
+  <rect x="660" y="284" width="220" height="12" rx="6" fill="#c4b5fd" opacity="0.7" />
+  <rect x="660" y="356" width="220" height="12" rx="6" fill="#c4b5fd" opacity="0.3" />
+  <rect x="660" y="388" width="200" height="12" rx="6" fill="#c4b5fd" opacity="0.3" />
+  <rect x="310" y="220" width="260" height="36" rx="18" fill="url(#mystique-card)" />
+  <rect x="310" y="324" width="260" height="36" rx="18" fill="url(#mystique-card)" />
+  <rect x="310" y="428" width="260" height="36" rx="18" fill="url(#mystique-card)" />
+</svg>
