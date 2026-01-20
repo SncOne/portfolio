@@ -4,7 +4,7 @@ import { projects } from '@/lib/projects'
 
 export const baseUrl = 'https://turkergurel.com'
 
-const staticPages = ['', '/about', '/projects', '/contact']
+const staticPages = ['', '/about', '/projects', '/blog', '/contact']
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()

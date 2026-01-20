@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { GitHubIcon, LinkedInIcon, MailIcon } from "@/components/icons";
+
 const socials = [
   { label: "GitHub", href: "https://github.com/sncone", icon: GitHubIcon },
   {
@@ -32,64 +34,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  );
-}
-
-function GitHubIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      className={className}
-      aria-hidden="true"
-    >
-      <path
-        d="M9 19c-4.5 1.5-4.5-2.5-6-3m12 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 18 4.77 5.07 5.07 0 0 0 17.91 1S16.73.65 14 2.48a13.38 13.38 0 0 0-5 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77 5.44 5.44 0 0 0 3.5 8.58c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function LinkedInIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      className={className}
-      aria-hidden="true"
-    >
-      <path
-        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <rect x="2" y="9" width="4" height="12" rx="1" />
-      <circle cx="4" cy="4" r="2" />
-    </svg>
-  );
-}
-
-function MailIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      className={className}
-      aria-hidden="true"
-    >
-      <rect x="3" y="5" width="18" height="14" rx="2" ry="2" />
-      <path d="m3 7 9 6 9-6" />
-    </svg>
   );
 }

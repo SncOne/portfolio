@@ -5,6 +5,12 @@ import { notFound } from 'next/navigation'
 
 import { FadeIn } from '@/components/fade-in'
 import {
+  AppStoreIcon,
+  ExternalLinkIcon,
+  GitHubIcon,
+  GooglePlayIcon,
+} from '@/components/icons'
+import {
   getProjectBySlug,
   getProjectSlugs,
   type ProjectLinkType,
@@ -133,75 +139,6 @@ function getLinkIcon(type: ProjectLinkType) {
     case 'github':
       return <GitHubIcon className="h-4 w-4" />
     default:
-      return <ExternalIcon className="h-4 w-4" />
+      return <ExternalLinkIcon className="h-4 w-4" />
   }
-}
-
-function GooglePlayIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      className={className}
-    >
-      <path d="m3.09 2.3 11.43 11.43" />
-      <path d="M14.52 5.57 20.66 9a2 2 0 0 1 0 3.46l-6.14 3.42" />
-      <path d="m3.09 21.7 11.43-11.43" />
-    </svg>
-  )
-}
-
-function AppStoreIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      className={className}
-    >
-      <path d="M17.53 17.53a4 4 0 0 1-3.57 2.2c-1.54 0-2.73-.87-3.39-.87s-1.97.84-3.23.84A4.05 4.05 0 0 1 3 18.42c-1.71-3 0-7.33 2.25-10.27C6.74 6.81 8.06 6 9.2 6c1.37 0 2.24.9 3.38.9 1.1 0 1.76-.9 3.38-.9a4.5 4.5 0 0 1 3.61 1.96 3.89 3.89 0 0 0-1.69 3.21 4 4 0 0 0 2.35 3.63 3.76 3.76 0 0 1-2.7 1.73Z" />
-      <path d="M14.64 2a3.6 3.6 0 0 1-.9 2.56 2.87 2.87 0 0 1-2.27 1.13 2.88 2.88 0 0 1 .92-2.51A3.14 3.14 0 0 1 14.64 2Z" />
-    </svg>
-  )
-}
-
-function GitHubIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      className={className}
-    >
-      <path
-        d="M9 19c-4.5 1.5-4.5-2.5-6-3m12 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 18 4.77 5.07 5.07 0 0 0 17.91 1S16.73.65 14 2.48a13.38 13.38 0 0 0-5 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77 5.44 5.44 0 0 0 3.5 8.58c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function ExternalIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      className={className}
-    >
-      <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-      <path d="M15 3h6v6" />
-      <path d="m10 14 11-11" />
-    </svg>
-  )
 }

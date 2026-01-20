@@ -121,7 +121,7 @@ export const projects: Project[] = [
       {
         type: 'google-play',
         label: 'Google Play',
-        href: 'https://play.google.com/store/apps/details?id=com.newIdTech.inndance',
+        href: 'https://play.google.com/store/apps/details?id=com.inndance.inndance',
       },
     ],
     gallery: [
