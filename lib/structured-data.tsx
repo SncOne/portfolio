@@ -44,9 +44,9 @@ export function getPersonSchema(): PersonSchema {
     '@type': 'Person',
     name: 'Türker Gürel',
     url: baseUrl,
-    jobTitle: 'Flutter & Next.js Developer',
+    jobTitle: 'Flutter Mobile Product Engineer',
     description:
-      'I craft refined Flutter and Next.js products with a sharp eye for detail, accessibility, and delightful UX.',
+      'Flutter mobile product engineer building realtime, map-heavy, AI, Firebase, and backend-connected apps.',
     sameAs: [
       'https://github.com/SncOne',
       'https://www.linkedin.com/in/turker-gurel/',
@@ -56,6 +56,11 @@ export function getPersonSchema(): PersonSchema {
       'Next.js',
       'React',
       'TypeScript',
+      'Riverpod',
+      'Firebase',
+      'Realtime Systems',
+      'Maps',
+      'Mobile Backend Integration',
       'Mobile Development',
       'Web Development',
       'UI/UX Design',
@@ -70,7 +75,7 @@ export function getWebsiteSchema(): WebsiteSchema {
     name: 'Türker Gürel',
     url: baseUrl,
     description:
-      'Portfolio of Türker Gürel - Flutter & Next.js Developer specializing in crafting refined digital products.',
+      'Portfolio of Türker Gürel - Flutter mobile product engineer building realtime, map-heavy, AI, Firebase, and backend-connected apps.',
     author: {
       '@type': 'Person',
       name: 'Türker Gürel',

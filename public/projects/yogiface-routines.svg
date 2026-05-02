@@ -1,0 +1,10 @@
+<svg width="960" height="640" viewBox="0 0 960 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="640" rx="32" fill="#F0FDFA"/>
+  <rect x="84" y="62" width="792" height="516" rx="28" fill="#FFFFFF" stroke="#99F6E4"/>
+  <text x="128" y="132" fill="#134E4A" font-family="Arial, sans-serif" font-size="34" font-weight="700">Routine recommendations</text>
+  <rect x="128" y="206" width="260" height="276" rx="24" fill="#CCFBF1"/>
+  <rect x="426" y="206" width="260" height="276" rx="24" fill="#D9F99D"/>
+  <rect x="724" y="206" width="72" height="276" rx="24" fill="#E0E7FF"/>
+  <rect x="128" y="520" width="212" height="34" rx="17" fill="#14B8A6"/>
+  <text x="128" y="174" fill="#0F766E" font-family="Arial, sans-serif" font-size="18">Replace with exercise detail and progress screenshots.</text>
+</svg>

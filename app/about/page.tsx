@@ -9,14 +9,14 @@ import { Button } from '@/components/ui/button'
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Türker Gürel is a Flutter & Next.js developer focused on crafting refined product experiences.',
+    'Türker Gürel is a Flutter mobile product engineer building realtime, map-heavy, AI, Firebase, and backend-connected apps.',
 }
 
 const skills = [
-  { category: 'Mobile', items: ['Flutter', 'Dart', 'iOS', 'Android'] },
-  { category: 'Web', items: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'] },
-  { category: 'Backend', items: ['Node.js', 'Firebase', 'Supabase', 'REST APIs'] },
-  { category: 'Tools', items: ['Git', 'Figma', 'VS Code', 'Xcode'] },
+  { category: 'Mobile', items: ['Flutter', 'Dart', 'Riverpod', 'Auto Route', 'iOS', 'Android'] },
+  { category: 'Backend', items: ['Firebase', 'Node.js', 'Express', 'Go', 'Fiber', 'REST APIs', 'WebSockets'] },
+  { category: 'Product Systems', items: ['Maps', 'Realtime location', 'Push notifications', 'RevenueCat', 'Secure storage'] },
+  { category: 'Web & Data', items: ['Next.js', 'React', 'TypeScript', 'MySQL', 'PostgreSQL', 'Supabase'] },
 ]
 
 export default function AboutPage() {
@@ -25,7 +25,7 @@ export default function AboutPage() {
       <FadeIn className="space-y-4">
         <p className="text-sm uppercase tracking-[0.4em] text-muted-foreground">About</p>
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          My path to thoughtful product shipping.
+          I build mobile products from first flow to production release.
         </h1>
       </FadeIn>
 
@@ -44,20 +44,24 @@ export default function AboutPage() {
 
         <FadeIn delay={0.16} className="space-y-6 text-muted-foreground">
           <p>
-            I&apos;m a multidisciplinary developer obsessed with delivering delightful user experiences. I partner closely
-            with product teams to translate ambitious ideas into polished Flutter and Next.js applications that feel fast,
-            responsive, and genuinely helpful.
+            I&apos;m a Flutter-focused product engineer who works across mobile UI,
+            application architecture, backend integrations, and release-ready product
+            details. My strongest work sits where polished UX meets operational
+            complexity: realtime chat, live location, maps, notifications,
+            subscriptions, secure auth, AI sessions, and API-driven state.
           </p>
           <p>
-            Over the past several years I&apos;ve driven end-to-end product delivery across startups and agencies—leading UX
-            strategy, building scalable design systems, and shipping production-ready apps that people love to use. My
-            approach blends clean architecture, maintainable code, and a relentless focus on the details that make
-            interfaces shine.
+            I&apos;ve built and shipped apps for logistics, rider communities, dance
+            festivals, AI companionship, children&apos;s reading, travel planning, and
+            wellness. Across those products I&apos;ve handled onboarding, profiles,
+            feeds, media, chat, routes, background tracking, payments, push
+            notifications, backend APIs, and store-facing production polish.
           </p>
           <p>
-            When I&apos;m not iterating on flows, you&apos;ll find me mentoring devs, exploring emerging UX patterns, or
-            experimenting with new ways to bridge mobile and web experiences. I believe the best products speak through
-            clarity and craft, and I bring that belief into every collaboration.
+            I care about products that are easy to use because the engineering
+            underneath is disciplined. I keep flows clear, state predictable,
+            integrations secure, and interfaces responsive enough for real users
+            outside a demo environment.
           </p>
           
           <div className="flex flex-wrap gap-3 pt-2">

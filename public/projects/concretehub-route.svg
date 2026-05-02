@@ -1,0 +1,14 @@
+<svg width="960" height="640" viewBox="0 0 960 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="640" rx="32" fill="#ECFEFF"/>
+  <rect x="80" y="64" width="800" height="512" rx="28" fill="#FFFFFF" stroke="#A5F3FC"/>
+  <rect x="116" y="100" width="380" height="440" rx="22" fill="#E0F2FE"/>
+  <path d="M160 470 C260 340 250 250 360 160" stroke="#0F766E" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="160" cy="470" r="18" fill="#14B8A6"/>
+  <circle cx="360" cy="160" r="18" fill="#F97316"/>
+  <rect x="540" y="118" width="260" height="58" rx="14" fill="#0F172A"/>
+  <text x="564" y="154" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="20" font-weight="700">Route coordination</text>
+  <rect x="540" y="216" width="260" height="70" rx="14" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <rect x="540" y="310" width="260" height="70" rx="14" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <rect x="540" y="404" width="152" height="46" rx="23" fill="#14B8A6"/>
+  <text x="540" y="508" fill="#64748B" font-family="Arial, sans-serif" font-size="18">Placeholder for live map and delivery status UI.</text>
+</svg>

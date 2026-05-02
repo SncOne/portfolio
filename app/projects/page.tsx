@@ -5,7 +5,8 @@ import { ProjectsGrid } from './projects-grid'
 
 export const metadata: Metadata = {
   title: 'Projects',
-  description: 'Selected projects and experiments crafted by Türker Gürel.',
+  description:
+    'Flutter, realtime, maps, AI, Firebase, and backend projects by Türker Gürel.',
 }
 
 export default function ProjectsPage() {
@@ -14,11 +15,12 @@ export default function ProjectsPage() {
       <FadeIn className="space-y-4">
         <p className="text-sm uppercase tracking-[0.4em] text-muted-foreground">Projects</p>
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          Products that balance craft, performance, and clarity.
+          Mobile products built for real workflows.
         </h1>
         <p className="max-w-prose text-lg text-muted-foreground">
-          A selection of shipped work and ongoing explorations. Each project pairs calm, confident visuals with robust
-          engineering, resulting in dependable experiences users genuinely enjoy.
+          A focused set of Flutter apps, realtime platforms, backend integrations,
+          and web products. Five apps are released on both iOS and Android,
+          while private, review-stage, and work-in-progress projects are clearly marked.
         </p>
       </FadeIn>
 

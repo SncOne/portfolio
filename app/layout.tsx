@@ -3,6 +3,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 
 import './global.css'
 
@@ -15,15 +16,15 @@ const baseUrl = 'https://turkergurel.com'
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Türker Gürel · Flutter & Next.js Developer',
+    default: 'Türker Gürel · Flutter Mobile Product Engineer',
     template: '%s · Türker Gürel',
   },
   description:
-    'I craft refined Flutter and Next.js products with a sharp eye for detail, accessibility, and delightful UX.',
+    'Flutter mobile product engineer building realtime, map-heavy, AI, Firebase, and backend-connected apps from product flow to production release.',
   openGraph: {
-    title: 'Türker Gürel · Flutter & Next.js Developer',
+    title: 'Türker Gürel · Flutter Mobile Product Engineer',
     description:
-      'I craft refined Flutter and Next.js products with a sharp eye for detail, accessibility, and delightful UX.',
+      'Flutter mobile product engineer building realtime, map-heavy, AI, Firebase, and backend-connected apps from product flow to production release.',
     url: baseUrl,
     siteName: 'Türker Gürel',
     locale: 'en_US',
@@ -31,9 +32,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Türker Gürel · Flutter & Next.js Developer',
+    title: 'Türker Gürel · Flutter Mobile Product Engineer',
     description:
-      'I craft refined Flutter and Next.js products with a sharp eye for detail, accessibility, and delightful UX.',
+      'Flutter mobile product engineer building realtime, map-heavy, AI, Firebase, and backend-connected apps from product flow to production release.',
   },
 }
 
@@ -50,7 +51,7 @@ const themeScript = `
 })();
 `
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <head>
@@ -67,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <Navbar />
         <main id="main-content" className="flex-1">
-          <div className="container max-w-prose space-y-16 pb-16 pt-12">
+          <div className="container max-w-6xl space-y-16 pb-16 pt-12">
             {children}
           </div>
         </main>

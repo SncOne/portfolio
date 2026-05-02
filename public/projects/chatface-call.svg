@@ -1,0 +1,11 @@
+<svg width="960" height="640" viewBox="0 0 960 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="640" rx="32" fill="#EEF2FF"/>
+  <rect x="80" y="58" width="800" height="524" rx="30" fill="#111827"/>
+  <circle cx="480" cy="246" r="104" fill="#818CF8"/>
+  <circle cx="480" cy="246" r="72" fill="#C4B5FD"/>
+  <text x="362" y="410" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="30" font-weight="700">Realtime AI session</text>
+  <text x="336" y="446" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="18">Voice, STT, TTS, and call lifecycle UI</text>
+  <circle cx="396" cy="512" r="28" fill="#374151"/>
+  <circle cx="480" cy="512" r="28" fill="#EF4444"/>
+  <circle cx="564" cy="512" r="28" fill="#374151"/>
+</svg>

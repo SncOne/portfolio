@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import type { ReactNode } from 'react'
 import { useState } from 'react'
 
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/fade-in'
@@ -53,15 +54,21 @@ export function ProjectsGrid() {
       </FadeIn>
 
       {/* Projects Grid */}
-      <StaggerContainer staggerDelay={0.1} initialDelay={0.15} className="grid gap-6 md:grid-cols-2">
+      <StaggerContainer staggerDelay={0.08} initialDelay={0.15} className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {filteredProjects.map((project) => (
           <StaggerItem key={project.slug}>
             <Link href={`/projects/${project.slug}`} className="group block h-full">
-              <Card className="relative flex h-full flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5 dark:hover:shadow-primary/10">
+              <Card className="relative flex h-full flex-col overflow-hidden rounded-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5 dark:hover:shadow-primary/10">
                 {/* Gradient overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 
-                <CardHeader className="relative">
+                <CardHeader className="relative gap-4">
+                  {(project.status || project.award) && (
+                    <div className="flex flex-wrap gap-2">
+                      {project.status && <ProjectBadge>{project.status}</ProjectBadge>}
+                      {project.award && <ProjectBadge>{project.award}</ProjectBadge>}
+                    </div>
+                  )}
                   <div className="flex items-start justify-between gap-3">
                     <div className="space-y-1">
                       <CardTitle className="transition-colors group-hover:text-primary">
@@ -79,6 +86,11 @@ export function ProjectsGrid() {
                   <p className="text-sm leading-relaxed text-muted-foreground">
                     {project.excerpt}
                   </p>
+                  {project.role && (
+                    <p className="border-l border-border pl-3 text-xs leading-relaxed text-muted-foreground">
+                      {project.role}
+                    </p>
+                  )}
                 </CardContent>
 
                 <CardFooter className="relative">
@@ -110,5 +122,13 @@ export function ProjectsGrid() {
         </div>
       )}
     </>
+  )
+}
+
+function ProjectBadge({ children }: { children: ReactNode }) {
+  return (
+    <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-primary">
+      {children}
+    </span>
   )
 }
