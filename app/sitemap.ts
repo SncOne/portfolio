@@ -1,8 +1,7 @@
 import type { MetadataRoute } from 'next'
 
 import { projects } from '@/lib/projects'
-
-export const baseUrl = 'https://turkergurel.com'
+import { absoluteUrl } from '@/lib/site'
 
 const staticPages = ['', '/about', '/projects', '/blog', '/contact']
 
@@ -12,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const projectPages = projects.map((project) => `/projects/${project.slug}`)
 
   return [...staticPages, ...projectPages].map((route) => ({
-    url: `${baseUrl}${route}`,
+    url: absoluteUrl(route),
     lastModified,
   }))
 }

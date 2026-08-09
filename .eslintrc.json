@@ -2,6 +2,9 @@
   "extends": [
     "next/core-web-vitals"
   ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "rules": {
     "prefer-const": "error",
     "no-unused-vars": "off",
@@ -11,31 +14,7 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "react/jsx-sort-props": [
-      "warn",
-      {
-        "callbacksLast": true,
-        "shorthandFirst": true,
-        "ignoreCase": true
-      }
-    ],
-    "import/order": [
-      "warn",
-      {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index"
-        ],
-        "newlines-between": "always",
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
-      }
-    ]
+    "react/jsx-sort-props": "off",
+    "import/order": "off"
   }
 }

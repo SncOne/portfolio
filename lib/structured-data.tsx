@@ -1,6 +1,8 @@
+import { absoluteUrl, siteConfig } from '@/lib/site'
+
 // Structured data helpers for SEO (JSON-LD schemas)
 
-export const baseUrl = 'https://turkergurel.com'
+export const baseUrl = siteConfig.url
 
 export type PersonSchema = {
   '@context': 'https://schema.org'
@@ -36,6 +38,8 @@ export type CreativeWorkSchema = {
     name: string
   }
   keywords: string[]
+  genre?: string
+  image?: string
 }
 
 export function getPersonSchema(): PersonSchema {
@@ -44,7 +48,7 @@ export function getPersonSchema(): PersonSchema {
     '@type': 'Person',
     name: 'Türker Gürel',
     url: baseUrl,
-    jobTitle: 'Flutter Mobile Product Engineer',
+    jobTitle: siteConfig.role,
     description:
       'Flutter mobile product engineer building realtime, map-heavy, AI, Firebase, and backend-connected apps.',
     sameAs: [
@@ -63,7 +67,9 @@ export function getPersonSchema(): PersonSchema {
       'Mobile Backend Integration',
       'Mobile Development',
       'Web Development',
-      'UI/UX Design',
+      'Dart',
+      'Push Notifications',
+      'Subscriptions',
     ],
   }
 }
@@ -75,7 +81,7 @@ export function getWebsiteSchema(): WebsiteSchema {
     name: 'Türker Gürel',
     url: baseUrl,
     description:
-      'Portfolio of Türker Gürel - Flutter mobile product engineer building realtime, map-heavy, AI, Firebase, and backend-connected apps.',
+      'Portfolio of Türker Gürel, a Flutter mobile developer and product engineer building production mobile products.',
     author: {
       '@type': 'Person',
       name: 'Türker Gürel',
@@ -88,18 +94,24 @@ export function getProjectSchema(project: {
   description: string
   slug: string
   tags: string[]
+  platform?: string
+  gallery?: { src: string; alt: string; visualType: string }[]
 }): CreativeWorkSchema {
+  const image = project.gallery?.find((media) => media.visualType !== 'product-screenshot')?.src
+
   return {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
     name: project.title,
     description: project.description,
-    url: `${baseUrl}/projects/${project.slug}`,
+    url: absoluteUrl(`/projects/${project.slug}`),
     author: {
       '@type': 'Person',
       name: 'Türker Gürel',
     },
     keywords: project.tags,
+    ...(project.platform ? { genre: project.platform } : {}),
+    ...(image ? { image: absoluteUrl(image) } : {}),
   }
 }
 

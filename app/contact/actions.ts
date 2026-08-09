@@ -24,11 +24,23 @@ export async function sendContactEmail(
   const name = String(formData.get('name') ?? '').trim()
   const email = String(formData.get('email') ?? '').trim()
   const message = String(formData.get('message') ?? '').trim()
+  const website = String(formData.get('website') ?? '').trim()
 
-  if (!name || !email || !message) {
+  if (website) {
+    return errorState
+  }
+
+  if (!name || !email || !message || name.length > 80 || email.length > 160 || message.length > 4000) {
     return {
       status: 'error',
       message: 'Please fill in your name, email, and a short project summary.',
+    }
+  }
+
+  if (message.length < 20 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return {
+      status: 'error',
+      message: 'Please use a valid email address and include a little more project detail.',
     }
   }
 
@@ -40,22 +52,16 @@ export async function sendContactEmail(
   const password = process.env.SMTP_PASSWORD
 
   if (!recipient || !fromAddress) {
-    console.warn('[contact] Email configuration missing CONTACT_EMAIL_TO or CONTACT_EMAIL_FROM. Message logged locally.')
-    console.info(`[contact] from: ${name} <${email}>\n${message}`)
     return {
-      status: 'success',
-      message:
-        'Thanks for reaching out! Email delivery is not configured yet, but your note has been recorded on the server.',
+      status: 'error',
+      message: 'Email delivery is not configured on this deployment yet. Please use the direct email link instead.',
     }
   }
 
   if (!host || !user || !password) {
-    console.warn('[contact] SMTP configuration incomplete. Message logged locally.')
-    console.info(`[contact] from: ${name} <${email}>\n${message}`)
     return {
-      status: 'success',
-      message:
-        'Thanks for reaching out! Email delivery is not configured yet, but your note has been recorded on the server.',
+      status: 'error',
+      message: 'Email delivery is not configured on this deployment yet. Please use the direct email link instead.',
     }
   }
 
@@ -81,13 +87,7 @@ export async function sendContactEmail(
     })
 
     return successState
-  } catch (error) {
-    console.error('[contact] Failed to send email', error)
+  } catch {
     return errorState
   }
-}
-
-export const initialContactState: ContactFormState = {
-  status: 'idle',
-  message: '',
 }

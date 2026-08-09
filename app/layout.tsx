@@ -2,40 +2,52 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 
 import './global.css'
 
 import { Footer } from '@/components/footer'
 import { Navbar } from '@/components/navbar'
+import { absoluteUrl, siteConfig } from '@/lib/site'
 import { getPersonSchema, getWebsiteSchema, JsonLd } from '@/lib/structured-data'
 
-const baseUrl = 'https://turkergurel.com'
-
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: 'Türker Gürel · Flutter Mobile Product Engineer',
+    default: `${siteConfig.name} · ${siteConfig.role}`,
     template: '%s · Türker Gürel',
   },
   description:
-    'Flutter mobile product engineer building realtime, map-heavy, AI, Firebase, and backend-connected apps from product flow to production release.',
+    'Türker Gürel is a Flutter mobile developer and product engineer building production iOS and Android apps with realtime systems, maps, live location, subscriptions, and API-backed workflows.',
+  alternates: {
+    canonical: siteConfig.url,
+  },
   openGraph: {
-    title: 'Türker Gürel · Flutter Mobile Product Engineer',
+    title: `${siteConfig.name} · ${siteConfig.role}`,
     description:
-      'Flutter mobile product engineer building realtime, map-heavy, AI, Firebase, and backend-connected apps from product flow to production release.',
-    url: baseUrl,
+      'Production Flutter apps with realtime messaging, maps, live location, subscriptions, and API-backed product flows.',
+    url: siteConfig.url,
     siteName: 'Türker Gürel',
     locale: 'en_US',
     type: 'website',
+    images: [{ url: absoluteUrl('/og'), width: 1200, height: 630, alt: 'Türker Gürel portfolio' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Türker Gürel · Flutter Mobile Product Engineer',
+    title: `${siteConfig.name} · ${siteConfig.role}`,
     description:
-      'Flutter mobile product engineer building realtime, map-heavy, AI, Firebase, and backend-connected apps from product flow to production release.',
+      'Production Flutter apps with realtime messaging, maps, live location, subscriptions, and API-backed product flows.',
+    images: [absoluteUrl('/og')],
   },
+}
+
+export const viewport: Viewport = {
+  colorScheme: 'dark light',
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#0d1117' },
+    { media: '(prefers-color-scheme: light)', color: '#fbfbfa' },
+  ],
 }
 
 // Inline script to prevent flash of wrong theme
@@ -68,7 +80,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </a>
         <Navbar />
         <main id="main-content" className="flex-1">
-          <div className="container max-w-6xl space-y-16 pb-16 pt-12">
+          <div className="container max-w-6xl space-y-20 pb-20 pt-10 sm:pt-14 lg:pt-16">
             {children}
           </div>
         </main>

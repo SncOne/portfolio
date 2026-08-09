@@ -1,22 +1,20 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { ReactNode } from 'react'
 
 import { FadeIn } from '@/components/fade-in'
-import {
-  AppStoreIcon,
-  ExternalLinkIcon,
-  GitHubIcon,
-  GooglePlayIcon,
-} from '@/components/icons'
+import { AppStoreIcon, ExternalLinkIcon, GitHubIcon, GooglePlayIcon } from '@/components/icons'
+import { ProjectMedia } from '@/components/project-media'
 import {
   getProjectBySlug,
   getProjectSlugs,
+  type Project,
   type ProjectLink,
   type ProjectLinkType,
 } from '@/lib/projects'
+import { absoluteUrl } from '@/lib/site'
+import { getProjectSchema, JsonLd } from '@/lib/structured-data'
 import { cn } from '@/lib/utils'
 
 type PageParams = {
@@ -28,254 +26,203 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }: { params: PageParams }): Metadata {
-  const { slug } = params
-  const project = getProjectBySlug(slug)
+  const project = getProjectBySlug(params.slug)
 
   if (!project) {
-    return {
-      title: 'Project not found',
-    }
+    return { title: 'Project not found' }
   }
+
+  const canonical = absoluteUrl(`/projects/${project.slug}`)
+  const image = project.gallery[0]?.src
 
   return {
     title: project.title,
     description: project.description,
+    alternates: { canonical },
     openGraph: {
-      title: project.title,
+      title: `${project.title} · Türker Gürel`,
       description: project.description,
-      type: 'website',
+      url: canonical,
+      type: 'article',
+      images: image ? [{ url: absoluteUrl(image), alt: project.gallery[0]?.alt }] : undefined,
     },
   }
 }
 
 export default function ProjectDetailPage({ params }: { params: PageParams }) {
-  const { slug } = params
-  const project = getProjectBySlug(slug)
+  const project = getProjectBySlug(params.slug)
 
-  if (!project) {
-    notFound()
-  }
+  if (!project) notFound()
 
   return (
     <article className="space-y-16">
-      <FadeIn className="space-y-6">
-        <div className="space-y-2">
-          <p className="text-sm uppercase tracking-[0.4em] text-muted-foreground">Case Study</p>
-          <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-            {project.title}
-          </h1>
-          <p className="text-lg text-muted-foreground">{project.subtitle}</p>
-        </div>
-        {(project.status || project.award) && (
-          <div className="flex flex-wrap gap-2">
-            {project.status && <ProjectBadge>{project.status}</ProjectBadge>}
-            {project.award && <ProjectBadge>{project.award}</ProjectBadge>}
-          </div>
-        )}
-        <ul className="flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <li
-              key={tag}
-              className="rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs uppercase tracking-[0.24em] text-muted-foreground"
+      <JsonLd data={getProjectSchema(project)} />
+
+      <FadeIn className="grid items-start gap-10 lg:grid-cols-[minmax(0,0.8fr),minmax(0,1.2fr)] lg:gap-16">
+        <div className="space-y-7">
+          <div className="space-y-4">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground"
             >
-              {tag}
-            </li>
-          ))}
-        </ul>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {project.links.map((link) => (
-            <ProjectActionLink key={`${link.type}-${link.label}`} link={link} priority />
-          ))}
+              <span aria-hidden="true">←</span>
+              All projects
+            </Link>
+            <div>
+              <p className="text-xs font-medium uppercase tracking-[0.24em] text-primary">{project.projectType}</p>
+              <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">{project.title}</h1>
+              <p className="mt-3 text-lg leading-relaxed text-muted-foreground">{project.subtitle}</p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+            <span className="rounded-full border border-border bg-muted/50 px-3 py-1.5">{project.platform}</span>
+            {project.status ? <span className="rounded-full border border-border bg-muted/50 px-3 py-1.5">{project.status}</span> : null}
+            {project.award ? <span className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1.5 text-primary">{project.award}</span> : null}
+          </div>
+
+          {project.links.length > 0 ? (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {project.links.map((link) => (
+                <ProjectActionLink key={`${link.type}-${link.label}`} link={link} />
+              ))}
+            </div>
+          ) : null}
+        </div>
+
+        <div className="space-y-3">
+          <ProjectMedia media={project.gallery[0]} priority />
+          <p className="text-xs text-muted-foreground">
+            {getVisualLabel(project.gallery[0].visualType)} · {getSourceLabel(project.gallery[0].source)}
+          </p>
         </div>
       </FadeIn>
 
-      <FadeIn className="space-y-8" delay={0.12}>
-        <header className="space-y-4">
-          <h2 className="text-2xl font-semibold tracking-tight">Overview</h2>
-          <p className="max-w-prose text-muted-foreground">{project.description}</p>
-        </header>
-        {(project.role || project.impact) && (
-          <div className="grid gap-4 md:grid-cols-2">
-            {project.role && (
-              <InfoPanel title="My Role">{project.role}</InfoPanel>
-            )}
-            {project.impact && (
-              <InfoPanel title="Product Value">{project.impact}</InfoPanel>
-            )}
-          </div>
-        )}
+      <FadeIn className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr),minmax(0,1.2fr)]" delay={0.08}>
+        <SectionIntro eyebrow="Overview" title="What the product is" />
+        <div className="space-y-7">
+          <p className="max-w-3xl text-lg leading-relaxed text-muted-foreground">{project.description}</p>
+          {(project.role || project.impact) ? (
+            <div className="grid gap-4 sm:grid-cols-2">
+              {project.role ? (
+                <InfoPanel title={project.roleLabel ?? 'My role'}>{project.role}</InfoPanel>
+              ) : null}
+              {project.impact ? <InfoPanel title="Product focus">{project.impact}</InfoPanel> : null}
+            </div>
+          ) : null}
+        </div>
       </FadeIn>
 
-      <FadeIn className="space-y-6" delay={0.16}>
-        <h2 className="text-2xl font-semibold tracking-tight">Key Work</h2>
-        <ul className="grid gap-3 text-muted-foreground md:grid-cols-2">
+      <FadeIn className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr),minmax(0,1.2fr)]" delay={0.12}>
+        <SectionIntro eyebrow="Key work" title="The parts that needed product thinking" />
+        <ul className="grid gap-3 sm:grid-cols-2">
           {project.highlights.map((item) => (
-            <li key={item} className="rounded-lg border border-border bg-muted/20 p-4 text-sm leading-relaxed">
+            <li key={item} className="border-t border-border pt-4 text-sm leading-relaxed text-muted-foreground">
               {item}
             </li>
           ))}
         </ul>
       </FadeIn>
 
-      <FadeIn className="space-y-4" delay={0.17}>
-        <h2 className="text-2xl font-semibold tracking-tight">Stack</h2>
-        <ul className="flex flex-wrap gap-2">
+      <FadeIn className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr),minmax(0,1.2fr)]" delay={0.16}>
+        <SectionIntro eyebrow="Stack" title="Tools used in the work" />
+        <ul className="flex h-fit flex-wrap gap-2">
           {project.tags.map((tag) => (
-            <li
-              key={tag}
-              className="rounded-full border border-border bg-background px-3 py-1.5 text-sm text-muted-foreground"
-            >
+            <li key={tag} className="rounded-full border border-border bg-muted/50 px-3 py-1.5 text-sm text-foreground">
               {tag}
             </li>
           ))}
         </ul>
       </FadeIn>
 
-      <FadeIn className="space-y-4" delay={0.18}>
-        <h2 className="text-2xl font-semibold tracking-tight">Links</h2>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {project.links.map((link) => (
-            <ProjectActionLink key={`detail-${link.type}-${link.label}`} link={link} />
-          ))}
-        </div>
-      </FadeIn>
+      {project.gallery.length > 1 ? (
+        <FadeIn className="space-y-6" delay={0.18}>
+          <SectionIntro eyebrow="Visuals" title="Product evidence and project artwork" />
+          <div className="grid gap-6 md:grid-cols-2">
+            {project.gallery.slice(1).map((media) => (
+              <figure key={media.src} className="space-y-3">
+                <ProjectMedia media={media} />
+                <figcaption className="text-xs text-muted-foreground">
+                  {getVisualLabel(media.visualType)} · {getSourceLabel(media.source)}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </FadeIn>
+      ) : null}
 
-      <FadeIn className="space-y-6" delay={0.18}>
-        <h2 className="text-2xl font-semibold tracking-tight">Gallery</h2>
-        <div className="grid gap-6 sm:grid-cols-2">
-          {project.gallery.map((media, index) => (
-            <FadeIn
-              key={media.src}
-              delay={0.2 + index * 0.08}
-              className="relative flex min-h-[420px] items-center justify-center overflow-hidden rounded-lg border border-border bg-muted/20 p-4"
-            >
-              <Image
-                src={media.src}
-                alt={media.alt}
-                width={960}
-                height={640}
-                className="h-full max-h-[520px] w-full object-contain"
-              />
-            </FadeIn>
-          ))}
-        </div>
-      </FadeIn>
+      {project.links.length > 0 ? (
+        <FadeIn className="border-t border-border pt-8" delay={0.2}>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-medium uppercase tracking-[0.22em] text-primary">Continue exploring</p>
+              <p className="mt-2 text-sm text-muted-foreground">Open the project or store listing when you want the external context.</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {project.links.map((link) => (
+                <ProjectActionLink key={`footer-${link.type}-${link.label}`} link={link} compact />
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+      ) : null}
     </article>
   )
 }
 
-function ProjectBadge({ children }: { children: ReactNode }) {
+function SectionIntro({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
-    <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-primary">
-      {children}
-    </span>
+    <div className="space-y-3">
+      <p className="text-xs font-medium uppercase tracking-[0.24em] text-primary">{eyebrow}</p>
+      <h2 className="max-w-xs text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h2>
+    </div>
   )
 }
 
 function InfoPanel({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="rounded-lg border border-border bg-muted/25 p-5">
-      <h2 className="text-sm font-medium uppercase tracking-[0.22em] text-muted-foreground">
-        {title}
-      </h2>
+    <section className="border-t border-border pt-4">
+      <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">{title}</h3>
       <p className="mt-3 text-sm leading-relaxed text-foreground">{children}</p>
     </section>
   )
 }
 
-function ProjectActionLink({
-  link,
-  priority = false,
-}: {
-  link: ProjectLink
-  priority?: boolean
-}) {
-  const content = (
-    <>
-      <span className={cn('flex h-11 w-11 shrink-0 items-center justify-center rounded-lg', getLinkIconWrapClasses(link))}>
-        {getLinkIcon(link.type, 'h-5 w-5')}
-      </span>
-      <span className="min-w-0">
-        <span className="block text-[0.68rem] font-medium uppercase tracking-[0.18em] opacity-70">
-          {getLinkEyebrow(link)}
-        </span>
-        <span className="block truncate text-sm font-semibold">{link.label}</span>
-      </span>
-    </>
-  )
-
+function ProjectActionLink({ link, compact = false }: { link: ProjectLink; compact?: boolean }) {
   const className = cn(
-    'group flex min-h-[68px] items-center gap-3 rounded-lg border p-3 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background',
-    getLinkCardClasses(link, priority)
+    'group inline-flex min-h-12 items-center gap-3 rounded-md border px-3 text-left transition-[background-color,border-color,color,transform] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 ring-offset-background',
+    compact ? 'bg-background text-sm hover:border-foreground/25 hover:bg-accent' : 'bg-card hover:border-foreground/25 hover:bg-accent',
+    link.type === 'app-store' && 'border-foreground bg-foreground text-background hover:bg-foreground/90',
+    link.type === 'google-play' && 'border-emerald-700/30 bg-emerald-950/20 text-emerald-100 hover:bg-emerald-950/35'
   )
-
-  if (!link.href || link.isPlaceholder) {
-    return (
-      <span className={className} aria-disabled="true">
-        {content}
-      </span>
-    )
-  }
 
   return (
-    <Link href={link.href} target="_blank" rel="noreferrer" className={className}>
-      {content}
+    <Link href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
+      <span className={cn('flex h-8 w-8 shrink-0 items-center justify-center rounded-md', getIconWrapClasses(link.type))}>
+        {getLinkIcon(link.type, 'h-4 w-4')}
+      </span>
+      <span className="min-w-0">
+        <span className="block text-[0.62rem] font-medium uppercase tracking-[0.18em] opacity-65">{getLinkEyebrow(link.type)}</span>
+        <span className="block truncate text-sm font-semibold">{link.label}</span>
+      </span>
     </Link>
   )
 }
 
-function getLinkEyebrow(link: ProjectLink) {
-  if (link.isPlaceholder) return 'Status'
-
-  switch (link.type) {
+function getLinkEyebrow(type: ProjectLinkType) {
+  switch (type) {
     case 'app-store':
       return 'Download on'
     case 'google-play':
       return 'Get it on'
     case 'github':
       return 'View source'
-    case 'website':
+    default:
       return 'Visit'
-    default:
-      return 'Open'
   }
 }
 
-function getLinkCardClasses(link: ProjectLink, priority: boolean) {
-  if (link.isPlaceholder) {
-    return 'cursor-not-allowed border-dashed border-border bg-muted/30 text-muted-foreground'
-  }
-
-  if (link.type === 'app-store') {
-    return cn(
-      'border-foreground bg-foreground text-background shadow-subtle hover:-translate-y-0.5 hover:shadow-lg',
-      priority && 'shadow-foreground/10'
-    )
-  }
-
-  if (link.type === 'google-play') {
-    return 'border-emerald-700/20 bg-emerald-50 text-emerald-950 hover:-translate-y-0.5 hover:border-emerald-700/35 hover:bg-emerald-100 dark:bg-emerald-950/25 dark:text-emerald-50 dark:hover:bg-emerald-950/40'
-  }
-
-  return 'border-border bg-background text-foreground hover:-translate-y-0.5 hover:bg-accent hover:text-accent-foreground'
-}
-
-function getLinkIconWrapClasses(link: ProjectLink) {
-  if (link.isPlaceholder) return 'border border-dashed border-border bg-background text-muted-foreground'
-
-  switch (link.type) {
-    case 'app-store':
-      return 'bg-background text-foreground'
-    case 'google-play':
-      return 'bg-emerald-600 text-white'
-    case 'github':
-      return 'bg-foreground text-background'
-    default:
-      return 'bg-primary/10 text-primary'
-  }
-}
-
-function getLinkIcon(type: ProjectLinkType, className = 'h-4 w-4') {
+function getLinkIcon(type: ProjectLinkType, className: string) {
   switch (type) {
     case 'google-play':
       return <GooglePlayIcon className={className} />
@@ -285,5 +232,41 @@ function getLinkIcon(type: ProjectLinkType, className = 'h-4 w-4') {
       return <GitHubIcon className={className} />
     default:
       return <ExternalLinkIcon className={className} />
+  }
+}
+
+function getIconWrapClasses(type: ProjectLinkType) {
+  switch (type) {
+    case 'app-store':
+      return 'bg-background text-foreground'
+    case 'google-play':
+      return 'bg-emerald-500 text-white'
+    case 'github':
+      return 'bg-foreground text-background'
+    default:
+      return 'bg-primary/15 text-primary'
+  }
+}
+
+function getVisualLabel(visualType: Project['gallery'][number]['visualType']) {
+  return visualType === 'store-screenshot'
+    ? 'Store screenshot'
+    : visualType === 'product-screenshot'
+      ? 'Product screenshot'
+      : 'Project artwork'
+}
+
+function getSourceLabel(source: Project['gallery'][number]['source']) {
+  switch (source) {
+    case 'generated-artwork':
+      return 'Illustrative visual'
+    case 'app-store':
+      return 'Apple App Store'
+    case 'google-play':
+      return 'Google Play'
+    case 'live-site':
+      return 'Captured from live site'
+    default:
+      return 'Repository asset'
   }
 }

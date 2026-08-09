@@ -1,289 +1,237 @@
-import Link from "next/link";
-import type { ReactNode } from "react";
+import Link from 'next/link'
 
-import { FadeIn } from "@/components/fade-in";
-import { ArrowRightIcon, GitHubIcon, LinkedInIcon, MailIcon } from "@/components/icons";
-import { featuredProjects } from "@/lib/projects";
-import { cn } from "@/lib/utils";
-
-const socials = [
-  {
-    label: "GitHub",
-    href: "https://github.com/SncOne",
-    icon: GitHubIcon,
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/turker-gurel/",
-    icon: LinkedInIcon,
-  },
-  {
-    label: "Email",
-    href: "mailto:turkergurel19@gmail.com",
-    icon: MailIcon,
-  },
-];
+import { FadeIn } from '@/components/fade-in'
+import { ArrowRightIcon, ExternalLinkIcon, GitHubIcon, LinkedInIcon, MailIcon } from '@/components/icons'
+import { ProjectCard } from '@/components/project-card'
+import { ProjectMediaPreview } from '@/components/project-media'
+import { featuredProjects } from '@/lib/projects'
+import { siteConfig } from '@/lib/site'
+import { cn } from '@/lib/utils'
 
 const buttonBase =
-  "inline-flex h-11 items-center justify-center gap-2 rounded-xl px-5 text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background";
+  'inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-4 text-sm font-medium transition-[background-color,border-color,color,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 ring-offset-background'
+
+const socialLinks = [
+  { label: 'GitHub', href: siteConfig.social.github, icon: GitHubIcon },
+  { label: 'LinkedIn', href: siteConfig.social.linkedIn, icon: LinkedInIcon },
+  { label: 'Email', href: `mailto:${siteConfig.email}`, icon: MailIcon },
+]
+
+const capabilities = [
+  {
+    number: '01',
+    title: 'Mobile product delivery',
+    detail: 'From onboarding and auth to media, subscriptions, store review, and post-release iteration.',
+  },
+  {
+    number: '02',
+    title: 'Realtime + location',
+    detail: 'Chat, presence, notifications, maps, routes, live location, and background-aware flows.',
+  },
+  {
+    number: '03',
+    title: 'The systems around the app',
+    detail: 'Firebase, REST APIs, WebSockets, Node.js, Go, secure storage, and production integrations.',
+  },
+]
+
+const stackGroups = [
+  { label: 'Mobile', items: ['Flutter', 'Dart', 'Riverpod', 'iOS', 'Android'] },
+  { label: 'Product systems', items: ['Firebase', 'Maps', 'Live location', 'Push notifications', 'Subscriptions'] },
+  { label: 'Supporting stack', items: ['REST APIs', 'WebSockets', 'Next.js', 'TypeScript', 'Node.js', 'Go'] },
+]
 
 export default function HomePage() {
-  return (
-    <div className="space-y-20">
-      <section className="relative space-y-14">
-        {/* Subtle gradient background accent */}
-        <div className="pointer-events-none absolute -top-12 left-1/2 h-[500px] w-[800px] -translate-x-1/2 opacity-30 blur-3xl">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/40 via-accent/30 to-transparent" />
-        </div>
+  const ridertify = featuredProjects[0]
 
-        <FadeIn className="relative space-y-8">
-          {/* Eyebrow with subtle animation */}
-          <div className="flex items-center gap-3">
-            <span className="h-px w-8 bg-gradient-to-r from-primary to-transparent" />
-            <p className="text-sm uppercase tracking-[0.4em] text-muted-foreground">
-              Flutter Mobile Product Engineer
+  return (
+    <div className="space-y-24">
+      <section className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.05fr),minmax(320px,0.75fr)] lg:gap-16">
+        <FadeIn className="space-y-8">
+          <div className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.24em] text-primary">
+            <span className="h-px w-8 bg-primary" />
+            Open to mobile product work
+          </div>
+          <div className="space-y-5">
+            <h1 className="max-w-3xl text-4xl font-semibold leading-[1.05] tracking-[-0.045em] text-balance sm:text-5xl lg:text-[4.25rem]">
+              Flutter mobile developer building the product layer from first flow to store release.
+            </h1>
+            <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
+              I build production iOS and Android apps with realtime messaging, maps, live location, subscriptions, push notifications, and API-backed workflows. When the product needs it, I also work across Next.js, TypeScript, Node.js, and Go.
             </p>
           </div>
-
-          {/* Hero heading with gradient accent */}
-          <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
-            Hi, I&apos;m{" "}
-            <span className="bg-gradient-to-r from-foreground via-foreground to-muted-foreground bg-clip-text">
-              Türker Gürel
-            </span>
-            .{" "}
-            <span className="text-muted-foreground">
-              I build production mobile apps with realtime systems, maps, payments, and polished UX.
-            </span>
-          </h1>
-
-          {/* Subheading */}
-          <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            I turn product ideas into shipped Flutter apps and supporting backends:
-            social platforms, logistics tools, AI companions, travel assistants,
-            learning products, location-heavy experiences, and subscription flows.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center gap-4 pt-2">
+          <div className="flex flex-wrap gap-3">
             <Link
               href="/projects"
-              className={cn(
-                buttonBase,
-                "bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 hover:bg-primary/90"
-              )}
+              className={cn(buttonBase, 'bg-primary text-primary-foreground shadow-lg shadow-primary/15 hover:-translate-y-0.5 hover:bg-primary/90')}
             >
-              View projects
+              See selected work
               <ArrowRightIcon className="h-4 w-4" />
             </Link>
             <Link
               href="/contact"
-              className={cn(
-                buttonBase,
-                "border border-border bg-background/50 backdrop-blur-sm hover:-translate-y-0.5 hover:bg-accent hover:text-accent-foreground hover:border-accent"
-              )}
+              className={cn(buttonBase, 'border border-border bg-background hover:-translate-y-0.5 hover:border-foreground/25 hover:bg-accent')}
             >
-              Get in touch
+              Start a conversation
             </Link>
             <Link
               href="/Resume.pdf"
               target="_blank"
-              className={cn(
-                buttonBase,
-                "border border-border bg-background/50 backdrop-blur-sm hover:-translate-y-0.5 hover:bg-accent hover:text-accent-foreground hover:border-accent"
-              )}
+              rel="noopener noreferrer"
+              className={cn(buttonBase, 'text-muted-foreground hover:text-foreground')}
             >
               Resume
+              <ExternalLinkIcon className="h-4 w-4" />
             </Link>
+          </div>
+          <div className="flex flex-wrap gap-x-5 gap-y-3 pt-1">
+            {socialLinks.map(({ label, href, icon: Icon }) => (
+              <Link
+                key={label}
+                href={href}
+                target={href.startsWith('http') ? '_blank' : undefined}
+                rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="group inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground"
+              >
+                <Icon className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
+                {label}
+              </Link>
+            ))}
           </div>
         </FadeIn>
 
-        {/* Social links with improved styling */}
-        <FadeIn
-          delay={0.15}
-          className="flex flex-wrap items-center gap-5"
-        >
-          {socials.map(({ label, href, icon: Icon }) => (
-            <Link
-              key={label}
-              href={href}
-              className="group flex items-center gap-3 text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background/50 backdrop-blur-sm transition-all group-hover:border-foreground/20 group-hover:bg-accent">
-                <Icon className="h-4 w-4" />
-              </span>
-              <span className="text-xs font-medium uppercase tracking-[0.2em]">
-                {label}
-              </span>
-            </Link>
-          ))}
-        </FadeIn>
-
-        {/* Decorative element */}
-        <FadeIn delay={0.25} className="pt-4">
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
-            <span className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
-            <span className="uppercase tracking-[0.3em]">Available for product teams and mobile roles</span>
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-            </span>
+        <FadeIn delay={0.12} className="lg:justify-self-end">
+          <div className="overflow-hidden rounded-xl border border-border bg-card shadow-2xl shadow-black/10">
+            <div className="flex items-center justify-between border-b border-border px-4 py-3 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              <span>Featured product</span>
+              <span className="text-primary">{ridertify.platform}</span>
+            </div>
+            <ProjectMediaPreview
+              media={ridertify.gallery}
+              priority
+              className="rounded-none border-0 border-b"
+            />
+            <div className="flex items-end justify-between gap-4 p-5">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.18em] text-primary">{ridertify.status}</p>
+                <h2 className="mt-2 text-2xl font-semibold tracking-tight">{ridertify.title}</h2>
+                <p className="mt-1 text-sm text-muted-foreground">{ridertify.subtitle}</p>
+              </div>
+              <Link
+                href={`/projects/${ridertify.slug}`}
+                aria-label={`Read the ${ridertify.title} case study`}
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+              >
+                <ArrowRightIcon className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
         </FadeIn>
       </section>
 
-      <FadeIn delay={0.12} className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <FadeIn delay={0.1} className="grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
         {[
-          { value: "5", label: "released iOS + Android apps" },
-          { value: "1", label: "Sabancı ARF award placement" },
-          { value: "9", label: "mobile and web case studies" },
-          { value: "Full-stack", label: "Flutter, Firebase, Node.js, Go" },
+          'Store releases',
+          'Realtime systems',
+          'Maps + live location',
+          'API-backed products',
         ].map((item) => (
-          <div key={item.label} className="rounded-lg border border-border bg-muted/25 p-4">
-            <p className="text-2xl font-semibold tracking-tight text-foreground">{item.value}</p>
-            <p className="mt-1 text-sm text-muted-foreground">{item.label}</p>
+          <div key={item} className="bg-card px-4 py-4 text-sm font-medium text-foreground sm:px-5">
+            {item}
           </div>
         ))}
       </FadeIn>
 
-      <section className="space-y-8">
+      <section className="space-y-8" aria-labelledby="selected-work-heading">
         <FadeIn className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-3">
-            <p className="text-sm uppercase tracking-[0.4em] text-muted-foreground">Featured Work</p>
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              Apps built around real product workflows.
+            <p className="text-xs font-medium uppercase tracking-[0.24em] text-primary">Selected work</p>
+            <h2 id="selected-work-heading" className="max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
+              Products where the hard parts are part of the experience.
             </h2>
           </div>
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
           >
-            View all projects
+            Browse all projects
             <ArrowRightIcon className="h-4 w-4" />
           </Link>
         </FadeIn>
-
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {featuredProjects.slice(0, 6).map((project, index) => (
-            <FadeIn
-              key={project.slug}
-              delay={0.18 + index * 0.04}
-              className="rounded-lg border border-border bg-card p-5 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
-            >
-              <Link href={`/projects/${project.slug}`} className="block space-y-4">
-                <div className="space-y-2">
-                  <div className="flex flex-wrap gap-2">
-                    {project.status && <HomeBadge>{project.status}</HomeBadge>}
-                    {project.award && <HomeBadge>{project.award}</HomeBadge>}
-                  </div>
-                  <h3 className="text-lg font-semibold tracking-tight">{project.title}</h3>
-                  <p className="text-sm text-muted-foreground">{project.subtitle}</p>
-                </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">{project.impact}</p>
-                <div className="flex items-center gap-2 text-sm font-medium">
-                  Read case study
-                  <ArrowRightIcon className="h-4 w-4" />
-                </div>
-              </Link>
+        <div className="grid gap-5 lg:grid-cols-2">
+          {featuredProjects.slice(0, 4).map((project, index) => (
+            <FadeIn key={project.slug} delay={0.08 + index * 0.04} className={index === 0 ? 'lg:col-span-2' : undefined}>
+              <ProjectCard project={project} featured={index === 0} priority={index < 2} />
             </FadeIn>
           ))}
         </div>
       </section>
 
-      <section className="space-y-8">
-        <FadeIn className="space-y-3">
-          <p className="text-sm uppercase tracking-[0.4em] text-muted-foreground">Technical Depth</p>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            The work behind the screens.
+      <section className="space-y-8" aria-labelledby="capabilities-heading">
+        <FadeIn className="max-w-3xl space-y-3">
+          <p className="text-xs font-medium uppercase tracking-[0.24em] text-primary">What I build</p>
+          <h2 id="capabilities-heading" className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            Calm interfaces backed by deliberate product engineering.
           </h2>
-          <p className="max-w-3xl text-muted-foreground">
-            The portfolio is not only UI work. Most projects include state
-            architecture, authentication, realtime data, media, maps, background
-            services, subscriptions, notifications, or backend integrations.
+          <p className="text-lg leading-relaxed text-muted-foreground">
+            I am most useful when a mobile product has real state, real integrations, and real users outside a demo environment.
           </p>
         </FadeIn>
-
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {[
-            {
-              title: "Realtime Systems",
-              detail:
-                "Chat rooms, online presence, WebSocket sessions, streaming AI responses, live location, and notification state.",
-            },
-            {
-              title: "Maps & Location",
-              detail:
-                "Route publishing, nearby discovery, driver navigation, background tracking, POI search, and map-based detail flows.",
-            },
-            {
-              title: "Production Integrations",
-              detail:
-                "Firebase auth, secure storage, REST APIs, RevenueCat, OneSignal, token refresh, media upload, and store release flows.",
-            },
-          ].map((item, index) => (
-            <FadeIn
-              key={item.title}
-              delay={0.08 + index * 0.04}
-              className="rounded-lg border border-border bg-card p-5"
-            >
-              <h3 className="text-base font-semibold tracking-tight">{item.title}</h3>
+        <div className="grid gap-5 md:grid-cols-3">
+          {capabilities.map((item, index) => (
+            <FadeIn key={item.number} delay={0.08 + index * 0.04} className="border-t border-border pt-5">
+              <p className="text-xs font-medium tracking-[0.18em] text-primary">{item.number}</p>
+              <h3 className="mt-4 text-lg font-semibold tracking-tight">{item.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.detail}</p>
             </FadeIn>
           ))}
         </div>
       </section>
 
-      <section className="grid gap-8 rounded-lg border border-border bg-muted/20 p-6 md:grid-cols-[1fr,0.8fr] md:p-8">
-        <FadeIn className="space-y-4">
-          <p className="text-sm uppercase tracking-[0.4em] text-muted-foreground">For Hiring Teams</p>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            I can own the mobile product layer and the integrations around it.
+      <section className="grid gap-10 border-y border-border py-10 lg:grid-cols-[0.8fr,1.2fr] lg:gap-20" aria-labelledby="toolkit-heading">
+        <FadeIn className="space-y-3">
+          <p className="text-xs font-medium uppercase tracking-[0.24em] text-primary">Engineering toolkit</p>
+          <h2 id="toolkit-heading" className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            Mobile first. Full-stack when useful.
           </h2>
-          <p className="text-muted-foreground">
-            I am strongest on Flutter products that need more than screens:
-            auth, realtime messaging, live location, media, maps, subscriptions,
-            notifications, secure storage, and API-backed state.
+        </FadeIn>
+        <div className="grid gap-7 sm:grid-cols-3">
+          {stackGroups.map((group, index) => (
+            <FadeIn key={group.label} delay={0.08 + index * 0.04} className="space-y-3">
+              <h3 className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">{group.label}</h3>
+              <ul className="space-y-2 text-sm text-foreground">
+                {group.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </FadeIn>
+          ))}
+        </div>
+      </section>
+
+      <section className="grid gap-8 rounded-xl border border-border bg-card p-6 sm:p-8 lg:grid-cols-[1fr,0.7fr] lg:p-10" aria-labelledby="contact-cta-heading">
+        <FadeIn className="space-y-4">
+          <p className="text-xs font-medium uppercase tracking-[0.24em] text-primary">Let&apos;s talk</p>
+          <h2 id="contact-cta-heading" className="max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl">
+            Have a mobile product that needs more than screens?
+          </h2>
+          <p className="max-w-xl text-muted-foreground">
+            Tell me what you are building, where the flow is getting difficult, and what a useful next step looks like.
           </p>
         </FadeIn>
-        <FadeIn delay={0.08} className="space-y-4">
-          <ul className="space-y-3 text-sm text-muted-foreground">
-            {[
-              "Build and polish Flutter apps for iOS and Android",
-              "Connect Firebase, REST APIs, WebSockets, and backend services",
-              "Implement maps, realtime location, chat, media, and premium flows",
-              "Prepare product flows for store review and production usage",
-            ].map((item) => (
-              <li key={item} className="rounded-lg border border-border bg-background p-3">
-                {item}
-              </li>
-            ))}
-          </ul>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="mailto:turkergurel19@gmail.com"
-              className="inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-            >
-              Email me
-            </Link>
-            <Link
-              href="https://www.linkedin.com/in/turker-gurel/"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex h-10 items-center justify-center rounded-lg border border-border px-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-            >
-              LinkedIn
-            </Link>
-          </div>
+        <FadeIn delay={0.08} className="flex flex-col justify-end gap-3 sm:flex-row lg:flex-col lg:items-start">
+          <Link href="/contact" className={cn(buttonBase, 'bg-primary text-primary-foreground hover:bg-primary/90')}>
+            Get in touch
+            <ArrowRightIcon className="h-4 w-4" />
+          </Link>
+          <Link
+            href={`mailto:${siteConfig.email}`}
+            className="text-sm font-medium text-muted-foreground hover:text-foreground"
+          >
+            {siteConfig.email}
+          </Link>
         </FadeIn>
       </section>
     </div>
-  );
-}
-
-function HomeBadge({ children }: { children: ReactNode }) {
-  return (
-    <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-primary">
-      {children}
-    </span>
   )
 }
